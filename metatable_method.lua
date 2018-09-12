@@ -74,3 +74,74 @@ s =Set.new{10,2,3}
 s =s +{8}
 Set.print(s)
 
+--小于等于
+mt.__le =function(a,b)
+	for k in pairs(a) do
+		if not b[k] then return false end
+	end
+	return true
+end
+
+--小于
+mt.__lt=function (a,b)
+	return a<=b and not (b<=a)
+end
+
+--等于
+mt.__eq =function (a,b)
+	return a<=b and b<=a
+end
+
+s1 =Set.new{2,4}
+s2 =Set.new{4,10,2}
+print(s1<=s2)
+print(s1< s2)
+print(s1>=s2)
+print(s1==s2)
+print(s1==s2*s1)
+
+--[[  可行
+mt.__tostring =function (a)
+	return "my tostring"
+end
+--]]
+mt.__tostring =Set.tostring
+print(s1)
+
+
+--=======================================
+print("===============================")
+--=======================================
+Window ={}
+Window.prototype={x=0,y=0,width =100,height =100}
+Window.mt ={}
+function Window.new(o)
+	setmetatable(o,Window.mt)
+	return o
+end
+Window.mt.__index=function (table,key)
+	return Window.prototype[key]
+end
+
+w=Window.new{x=10,y=20,1500}
+print(w.width)
+--print(w.x)
+print( rawget(w,"width")) --rawget该方法不会触发__index元方法
+print( rawget(w,"x")) 
+print( rawget(w,1)) 
+
+
+Window.mt.__newindex =function (table,key,value)
+	Window.prototype[key] =value
+end
+
+w.xx =201
+print(w.xx)
+print("=========")
+for k,v in pairs(w) do
+	print(k,v)
+end
+
+rawset(w,"xx",202)   --绕过__newindex函数
+print(w.xx)
+
