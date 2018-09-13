@@ -145,3 +145,6 @@ end
 rawset(w,"xx",202)   --绕过__newindex函数
 print(w.xx)
 
+
+---======================
+---追踪table
