@@ -34,5 +34,26 @@ function List.pushfirst(list,value)
 	list.first =first
 	list[first] =value
 end
-List.pushfirst(a,2)
-print(a[a.first])
+
+function List.popfirst(list)
+	local first = list.first
+	if first>list.last then error("list is empth")end
+	local value = list[first]
+	list[first] =nil	--为了允许垃圾收集
+	list.first =first+1
+	return value
+end
+
+function List.poplast(list)
+	local  last = list.last
+	if list.first>last then error("list is empth") end
+	local value = list[last]
+	list[last] =nil
+	list.last =last-1
+	return value
+end
+
+t={"i","am","a" ,"worker"}
+local s = table.concat(t,"\n")
+print(s)
+
