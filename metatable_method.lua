@@ -145,6 +145,13 @@ end
 rawset(w,"xx",202)   --绕过__newindex函数
 print(w.xx)
 
-
 ---======================
 ---追踪table
+for n in pairs(_G) do
+	--print(n)
+end
+
+
+local m = require "io"
+m.write("hello world\n")
+
